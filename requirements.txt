@@ -1,0 +1,2 @@
+# No external dependencies required for standard library usage
+# If you expand functionality, add them here.

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Mailer - The Ultimate Mass Email Tool for Gmail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1', // Indigo
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#4f46e5 0.5px, #ffffff 0.5px);
+            background-size: 10px 10px;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white fixed w-full z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <i class="fa-solid fa-paper-plane text-brand-600 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl tracking-tight text-gray-900">Mass Mailer</span>
+                    </a>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="index.html" class="text-brand-600 border-b-2 border-brand-600 px-3 py-2 text-sm font-medium transition">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden hero-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+                        <span class="block">Send Mass Emails</span>
+                        <span class="block text-brand-600">Inside Gmail</span>
+                    </h1>
+                    <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                        Mass Mailer transforms Gmail into a powerful email marketing platform. Send campaigns, automate follow-ups, and track results without leaving your inbox.
+                    </p>
+                    <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
+                        <a href="#emailForm" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 md:text-lg md:px-10 shadow-lg transform hover:-translate-y-1 transition duration-200">
+                            <i class="fab fa-google mr-2"></i> Start Sending Now
+                        </a>
+                        <p class="mt-3 text-sm text-gray-500">
+                            Trusted by 300,000+ users. No credit card required.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+                    <div class="relative mx-auto w-full rounded-lg shadow-2xl overflow-hidden bg-white border border-gray-100">
+                        <div class="bg-gray-100 border-b border-gray-200 px-4 py-2 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            </div>
+                            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Live Demo</div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div id="feedbackBar" class="hidden mb-3 px-3 py-2 rounded border text-xs"></div>
+                            <!-- Send Form -->
+                            <form id="emailForm" class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700">Sender Name</label>
+                                        <input type="text" id="senderName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2" placeholder="John Doe">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700">Sender Email (Gmail)</label>
+                                        <input type="email" id="senderEmail" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2" placeholder="you@gmail.com">
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-yellow-50 p-3 rounded-md border border-yellow-200">
+                                    <label class="block text-xs font-bold text-gray-800">App Password (REQUIRED)</label>
+                                    <p class="text-[10px] text-gray-600 mb-1">
+                                        You <b>cannot</b> use your regular Gmail password. You must enable 2FA and generate an App Password.
+                                        <a href="https://myaccount.google.com/apppasswords" target="_blank" class="text-brand-600 hover:underline font-bold">Click here to get one.</a>
+                                    </p>
+                                    <input type="password" id="appPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2" placeholder="xxyy aabb ccdd eeff">
+                                </div>
+
+                                <!-- Recipients Section -->
+                                <div class="bg-gray-50 p-3 rounded-md border border-gray-200">
+                                    <label class="block text-xs font-medium text-gray-700 mb-2">Recipients List (CSV Format: Email, Name, Company)</label>
+                                    <textarea id="recipientsCsv" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2 font-mono text-xs" placeholder="john@example.com, John, Acme Inc&#10;sarah@test.com, Sarah, Tech Corp"></textarea>
+                                    <div class="mt-2 text-xs text-gray-500 flex justify-between items-center">
+                                        <span id="recipientCount">0 recipients detected</span>
+                                        <div class="flex space-x-3">
+                                            <input type="file" id="csvFileInput" accept=".csv" class="hidden">
+                                            <button type="button" onclick="document.getElementById('csvFileInput').click()" class="text-brand-600 hover:text-brand-800 font-medium flex items-center">
+                                                <i class="fas fa-file-upload mr-1"></i> Upload CSV
+                                            </button>
+                                            <button type="button" id="loadCsvBtn" class="text-brand-600 hover:text-brand-800 font-medium">Update Count</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Scheduling & Delay -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-3 rounded-md border border-gray-200">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Delay Between Emails</label>
+                                        <select id="delaySeconds" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2">
+                                            <option value="0.5">0.5 Seconds (Fast)</option>
+                                            <option value="1">1 Second</option>
+                                            <option value="3">3 Seconds</option>
+                                            <option value="5">5 Seconds</option>
+                                            <option value="10">10 Seconds</option>
+                                            <option value="20">20 Seconds</option>
+                                            <option value="30">30 Seconds</option>
+                                            <option value="45">45 Seconds</option>
+                                            <option value="60">1 Minute</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Schedule Start Time (Optional)</label>
+                                        <input type="datetime-local" id="scheduleTime" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700">Message</label>
+                                    <input type="text" id="subject" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm border p-2 mb-2" placeholder="Subject">
+                                    
+                                    <!-- Rich Text Toolbar -->
+                                    <div class="border border-gray-300 rounded-t-md bg-gray-50 p-2 flex flex-wrap gap-2 items-center">
+                                        <select onchange="formatDoc('fontName', this.value)" class="text-xs border rounded p-1 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Times New Roman">Times</option>
+                                            <option value="Courier New">Courier</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Verdana">Verdana</option>
+                                        </select>
+                                        <select onchange="formatDoc('fontSize', this.value)" class="text-xs border rounded p-1 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                            <option value="3">Normal</option>
+                                            <option value="1">Small</option>
+                                            <option value="5">Large</option>
+                                            <option value="7">Huge</option>
+                                        </select>
+                                        <div class="h-6 w-px bg-gray-300 mx-1"></div>
+                                        <button type="button" onclick="formatDoc('bold')" class="p-1 hover:bg-gray-200 rounded text-gray-700 w-8 flex justify-center items-center transition" title="Bold"><i class="fas fa-bold"></i></button>
+                                        <button type="button" onclick="formatDoc('italic')" class="p-1 hover:bg-gray-200 rounded text-gray-700 w-8 flex justify-center items-center transition" title="Italic"><i class="fas fa-italic"></i></button>
+                                        <button type="button" onclick="formatDoc('underline')" class="p-1 hover:bg-gray-200 rounded text-gray-700 w-8 flex justify-center items-center transition" title="Underline"><i class="fas fa-underline"></i></button>
+                                        <div class="h-6 w-px bg-gray-300 mx-1"></div>
+                                        <input type="color" onmousedown="saveSelection()" onchange="applyColor(this.value)" class="w-8 h-8 p-0 border-0 rounded cursor-pointer bg-transparent" title="Text Color">
+                                        
+                                        <!-- Link Input Popover -->
+                                        <div class="relative group">
+                                            <button type="button" onclick="toggleLinkInput()" class="p-1 hover:bg-gray-200 rounded text-gray-700 w-8 flex justify-center items-center transition" title="Insert Link"><i class="fas fa-link"></i></button>
+                                            <div id="linkInputPopup" class="hidden absolute top-full left-0 mt-1 bg-white border shadow-lg p-2 rounded z-50 w-64">
+                                                <input type="text" id="linkUrlInput" class="w-full border rounded p-1 text-xs mb-1" placeholder="https://example.com">
+                                                <div class="flex justify-end space-x-1">
+                                                    <button type="button" onclick="confirmLink()" class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Add</button>
+                                                    <button type="button" onclick="toggleLinkInput()" class="bg-gray-200 px-2 py-1 rounded text-xs">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="h-6 w-px bg-gray-300 mx-1"></div>
+                                        <!-- File Attachment -->
+                                        <input type="file" id="fileUpload" class="hidden" onchange="handleFileUpload(this)">
+                                        <button type="button" onclick="document.getElementById('fileUpload').click()" class="p-1 hover:bg-gray-200 rounded text-gray-700 w-8 flex justify-center items-center transition relative" title="Attach File">
+                                            <i class="fas fa-paperclip"></i>
+                                            <span id="fileIndicator" class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500 hidden"></span>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Attachment Preview -->
+                                    <div id="attachmentPreview" class="hidden mt-2 p-2 bg-gray-50 border border-gray-200 rounded text-xs flex justify-between items-center text-gray-600">
+                                        <span id="attachmentName" class="truncate font-medium">filename.pdf</span>
+                                        <button type="button" onclick="removeAttachment()" class="text-red-500 hover:text-red-700 ml-2"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    
+                                    <!-- Editor Area -->
+                                    <div id="editor" contenteditable="true" class="block w-full border-l border-r border-b border-gray-300 rounded-b-md p-4 min-h-[200px] max-h-[400px] overflow-y-auto focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white" 
+                                         style="min-height: 200px;">
+                                        <div>Hi {Name},</div><div><br></div><div>I'm writing to you at {Company}...</div>
+                                    </div>
+
+                                    <!-- Variable Insertion -->
+                                    <div class="mt-2 text-xs text-gray-500 flex items-center space-x-2">
+                                        <span>Insert Variable:</span>
+                                        <button type="button" onclick="insertVar('{Name}')" class="px-2 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 border border-blue-200 font-medium transition">+ Name</button>
+                                        <button type="button" onclick="insertVar('{Company}')" class="px-2 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 border border-blue-200 font-medium transition">+ Company</button>
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="sendBtn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition">
+                                    <span id="btnText">Send Campaign</span>
+                                    <i id="btnIcon" class="fas fa-paper-plane ml-2 mt-1"></i>
+                                </button>
+                            </form>
+
+                            <!-- Live Stats -->
+                            <div class="mt-6 pt-6 border-t border-gray-100">
+                                <div class="flex justify-between items-end mb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <h4 class="text-sm font-bold text-gray-900">Live Tracking Stats</h4>
+                                        <span id="campaignStatus" class="text-xs px-2 py-1 rounded border">idle</span>
+                                    </div>
+                                    <span class="text-xs text-red-500 bg-red-50 px-2 py-1 rounded border border-red-100" id="localhostWarning" style="display: none;"><i class="fas fa-info-circle"></i> Tracking requires public URL</span>
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-center">
+                                    <div class="bg-blue-50 p-2 sm:p-3 rounded shadow-sm hover:shadow-md transition">
+                                        <div class="text-2xl sm:text-3xl font-bold text-blue-600" id="statSent">0</div>
+                                        <div class="text-[10px] sm:text-xs font-semibold text-blue-800 uppercase tracking-wide">Sent</div>
+                                    </div>
+                                    <div class="bg-green-50 p-2 sm:p-3 rounded shadow-sm hover:shadow-md transition">
+                                        <div class="text-2xl sm:text-3xl font-bold text-green-600" id="statOpen">0</div>
+                                        <div class="text-[10px] sm:text-xs font-semibold text-green-800 uppercase tracking-wide">Opened</div>
+                                    </div>
+                                    <div class="bg-purple-50 p-2 sm:p-3 rounded shadow-sm hover:shadow-md transition">
+                                        <div class="text-2xl sm:text-3xl font-bold text-purple-600" id="statClick">0</div>
+                                        <div class="text-[10px] sm:text-xs font-semibold text-purple-800 uppercase tracking-wide">Clicked</div>
+                                    </div>
+                                    <div class="bg-red-50 p-2 sm:p-3 rounded shadow-sm hover:shadow-md transition">
+                                        <div class="text-2xl sm:text-3xl font-bold text-red-600" id="statFailed">0</div>
+                                        <div class="text-[10px] sm:text-xs font-semibold text-red-800 uppercase tracking-wide" title="SMTP Delivery Failures">Failed/Bounced</div>
+                                    </div>
+                                    <div class="bg-yellow-50 p-2 sm:p-3 rounded shadow-sm col-span-2 md:col-span-2 lg:col-span-1 hover:shadow-md transition">
+                                        <div class="text-2xl sm:text-3xl font-bold text-yellow-600" id="statUnverified">0</div>
+                                        <div class="text-[10px] sm:text-xs font-semibold text-yellow-800 uppercase tracking-wide" title="Invalid Email Format">Unverified/Invalid</div>
+                                    </div>
+                                </div>
+                                <div id="activityLog" class="mt-4 text-xs text-gray-500 h-32 overflow-y-auto border border-gray-200 rounded p-2 bg-white font-mono shadow-inner">
+                                    Waiting for activity...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    const form = document.getElementById('emailForm');
+                    const sendBtn = document.getElementById('sendBtn');
+                    const btnText = document.getElementById('btnText');
+                    const btnIcon = document.getElementById('btnIcon');
+                    const API_BASE = (window.MASS_MAILER_API || localStorage.getItem('mass_mailer_api_base') || window.location.origin);
+                    const logContainer = document.getElementById('activityLog');
+                    const recipientsCsv = document.getElementById('recipientsCsv');
+                    const loadCsvBtn = document.getElementById('loadCsvBtn');
+                    const csvFileInput = document.getElementById('csvFileInput');
+                    const recipientCount = document.getElementById('recipientCount');
+                    const editor = document.getElementById('editor');
+                    
+                    let currentAttachment = null;
+                    let pollInterval;
+
+                    // --- Helper Functions ---
+
+                    function showFeedback(type, msg) {
+                        const el = document.getElementById('feedbackBar');
+                        if (!el) return;
+                        el.className = 'mb-3 px-3 py-2 rounded border text-xs';
+                        if (type === 'error') {
+                            el.className += ' text-red-700 bg-red-50 border-red-200';
+                        } else if (type === 'success') {
+                            el.className += ' text-green-700 bg-green-50 border-green-200';
+                        } else {
+                            el.className += ' text-gray-700 bg-gray-50 border-gray-200';
+                        }
+                        el.innerText = msg;
+                        el.classList.remove('hidden');
+                    }
+
+                    function toggleBtnLoading(loading) {
+                        if (loading) {
+                            btnIcon.className = 'fas fa-spinner animate-spin ml-2 mt-1';
+                        } else {
+                            btnIcon.className = 'fas fa-paper-plane ml-2 mt-1';
+                        }
+                    }
+                    
+                    async function parseJsonSafe(response) {
+                        const ct = (response.headers.get('content-type') || '').toLowerCase();
+                        if (ct.includes('application/json')) {
+                            return await response.json();
+                        }
+                        const text = await response.text();
+                        throw new Error('HTTP ' + response.status + ' ' + text.slice(0, 200));
+                    }
+
+                    // 1. Parse Recipients
+                    function parseRecipients(csvText) {
+                        const recipients = [];
+                        const lines = csvText.trim().split('\n');
+                        
+                        lines.forEach(line => {
+                            if (!line.trim()) return;
+                            
+                            // Handle quoted CSV fields
+                            let matches = [];
+                            if (!line.includes('"')) {
+                                matches = line.split(',').map(s => s.trim());
+                            } else {
+                                let inQuote = false;
+                                let buffer = '';
+                                for (let i = 0; i < line.length; i++) {
+                                    const char = line[i];
+                                    if (char === '"') {
+                                        inQuote = !inQuote;
+                                    } else if (char === ',' && !inQuote) {
+                                        matches.push(buffer.trim());
+                                        buffer = '';
+                                    } else {
+                                        buffer += char;
+                                    }
+                                }
+                                matches.push(buffer.trim());
+                            }
+
+                            if (matches.length > 0 && matches[0].includes('@')) {
+                                recipients.push({
+                                    email: matches[0].replace(/^"|"$/g, ''), 
+                                    name: matches[1] ? matches[1].replace(/^"|"$/g, '') : '',
+                                    company: matches[2] ? matches[2].replace(/^"|"$/g, '') : ''
+                                });
+                            }
+                        });
+                        return recipients;
+                    }
+
+                    // 2. Update Count
+                    function updateCount() {
+                        const count = parseRecipients(recipientsCsv.value).length;
+                        recipientCount.innerText = `${count} recipients detected`;
+                    }
+
+                    // 3. File Upload
+                    function handleFileUpload(input) {
+                        const file = input.files[0];
+                        if (file) {
+                            if (file.size > 25 * 1024 * 1024) { 
+                                alert("File is too large (Max 25MB)");
+                                input.value = '';
+                                return;
+                            }
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                currentAttachment = {
+                                    name: file.name,
+                                    data: e.target.result // Base64
+                                };
+                                document.getElementById('attachmentName').innerText = file.name;
+                                document.getElementById('attachmentPreview').classList.remove('hidden');
+                                document.getElementById('fileIndicator').classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+
+                    function removeAttachment() {
+                        currentAttachment = null;
+                        document.getElementById('fileUpload').value = '';
+                        document.getElementById('attachmentPreview').classList.add('hidden');
+                        document.getElementById('fileIndicator').classList.add('hidden');
+                    }
+
+                    // 4. Rich Text & Vars
+                    function formatDoc(cmd, value=null) {
+                        document.execCommand(cmd, false, value);
+                        editor.focus();
+                    }
+                    
+                    function insertVar(varName) {
+                        editor.focus();
+                        document.execCommand('insertText', false, varName);
+                    }
+
+                    function saveSelection() {
+                        const selection = window.getSelection();
+                        if (selection.rangeCount > 0) {
+                            window.savedRange = selection.getRangeAt(0);
+                        }
+                    }
+
+                    function applyColor(color) {
+                        if (window.savedRange) {
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(window.savedRange);
+                        }
+                        formatDoc('foreColor', color);
+                    }
+
+                    function toggleLinkInput() {
+                        const popup = document.getElementById('linkInputPopup');
+                        if (popup.classList.contains('hidden')) {
+                            saveSelection();
+                            popup.classList.remove('hidden');
+                            document.getElementById('linkUrlInput').focus();
+                        } else {
+                            popup.classList.add('hidden');
+                        }
+                    }
+
+                    function confirmLink() {
+                        const url = document.getElementById('linkUrlInput').value;
+                        if (url && window.savedRange) {
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(window.savedRange);
+                            document.execCommand('createLink', false, url);
+                        }
+                        document.getElementById('linkUrlInput').value = '';
+                        toggleLinkInput();
+                    }
+
+                    // 5. Polling
+                    function startPolling() {
+                        if (pollInterval) clearInterval(pollInterval);
+                        pollInterval = setInterval(async () => {
+                            try {
+                                const res = await fetch(API_BASE + '/api/stats');
+                                const stats = await parseJsonSafe(res);
+                                
+                                document.getElementById('statSent').innerText = stats.sent;
+                                document.getElementById('statOpen').innerText = stats.opened;
+                                document.getElementById('statClick').innerText = stats.clicked;
+                                document.getElementById('statFailed').innerText = stats.failed;
+                                document.getElementById('statUnverified').innerText = stats.unverified;
+                                
+                                const statusEl = document.getElementById('campaignStatus');
+                                if (statusEl) {
+                                    statusEl.innerText = stats.status || 'idle';
+                                    statusEl.className = "text-xs px-2 py-1 rounded border";
+                                    if (stats.status === 'sending') {
+                                        statusEl.className += " text-yellow-700 bg-yellow-50 border-yellow-200";
+                                    } else if (stats.status === 'completed') {
+                                        statusEl.className += " text-green-700 bg-green-50 border-green-200";
+                                    } else if (stats.status === 'error') {
+                                        statusEl.className += " text-red-700 bg-red-50 border-red-200";
+                                    } else {
+                                        statusEl.className += " text-gray-700 bg-gray-50 border-gray-200";
+                                    }
+                                }
+                                
+                                // Logs
+                                if (stats.logs && stats.logs.length > 0) {
+                                    logContainer.innerText = stats.logs.slice().reverse().join('\n');
+                                }
+                                
+                                if (stats.status === 'completed' || stats.status === 'error') {
+                                    sendBtn.disabled = false;
+                                    btnText.innerText = stats.status === 'completed' ? "Send Another Campaign" : "Retry Campaign";
+                                }
+                            } catch (e) {
+                                console.error("Polling error", e);
+                            }
+                        }, 2000);
+                    }
+
+                    // --- Event Listeners ---
+
+                    recipientsCsv.addEventListener('input', updateCount);
+                    recipientsCsv.addEventListener('blur', updateCount);
+                    loadCsvBtn.addEventListener('click', updateCount);
+
+                    csvFileInput.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            recipientsCsv.value = event.target.result;
+                            updateCount();
+                        };
+                        reader.readAsText(file);
+                    });
+
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const senderName = document.getElementById('senderName').value;
+                        const senderEmail = document.getElementById('senderEmail').value;
+                        const appPassword = document.getElementById('appPassword').value;
+                        const subject = document.getElementById('subject').value;
+                        const body = editor.innerHTML;
+                        const csvText = recipientsCsv.value;
+                        const delaySeconds = document.getElementById('delaySeconds').value;
+                        const scheduleTime = document.getElementById('scheduleTime').value;
+
+                        if (!senderEmail || !appPassword || !csvText.trim()) {
+                            showFeedback('error', 'Please fill in all required fields (Sender Email, App Password, Recipients).');
+                            return;
+                        }
+
+                        // Google App Password Validation Warning
+                        if (senderEmail.includes('@gmail.com') && appPassword.length < 16) {
+                            if(!confirm("You are using a Gmail address but the password seems too short to be an App Password (usually 16 characters). Regular Gmail passwords will NOT work. Continue anyway?")) {
+                                return;
+                            }
+                        }
+
+                        const recipients = parseRecipients(csvText);
+                        if (recipients.length === 0) {
+                            showFeedback('error', 'No recipients found!');
+                            return;
+                        }
+
+                        // Save user preferences
+                        localStorage.setItem('mass_mailer_data', JSON.stringify({
+                            email: senderEmail,
+                            name: senderName,
+                            password: appPassword,
+                            delay: delaySeconds
+                        }));
+
+                        sendBtn.disabled = true;
+                        btnText.innerText = "Starting Campaign...";
+                        toggleBtnLoading(true);
+                        
+                        const payload = {
+                            sender_name: senderName,
+                            sender_email: senderEmail,
+                            password: appPassword,
+                            subject: subject,
+                            body: body,
+                            recipients: recipients,
+                            delay_seconds: delaySeconds,
+                            schedule_time: scheduleTime,
+                            attachment: currentAttachment
+                        };
+
+                        try {
+                            const response = await fetch(API_BASE + '/api/send', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+                            
+                            const resData = await parseJsonSafe(response);
+                            if (response.ok) {
+                                showFeedback('success', 'Campaign started. Check the Live Stats below.');
+                                btnText.innerText = "Campaign Running";
+                                startPolling();
+                            } else {
+                                throw new Error(resData.message || "Unknown error");
+                            }
+                        } catch (error) {
+                            showFeedback('error', 'Error: ' + error.message);
+                            sendBtn.disabled = false;
+                            btnText.innerText = "Send Campaign";
+                            toggleBtnLoading(false);
+                        }
+                    });
+
+                    // --- Init ---
+                    
+                    // Load saved data
+                    try {
+                        const saved = localStorage.getItem('mass_mailer_data');
+                        if (saved) {
+                            const data = JSON.parse(saved);
+                            if(data.email) document.getElementById('senderEmail').value = data.email;
+                            if(data.name) document.getElementById('senderName').value = data.name;
+                            if(data.password) document.getElementById('appPassword').value = data.password;
+                            if(data.delay) document.getElementById('delaySeconds').value = data.delay;
+                        }
+                    } catch (e) { console.error("Error loading saved data", e); }
+
+                    try {
+                        updateCount();
+                        const warn = document.getElementById('localhostWarning');
+                        if (warn && ((location.hostname === 'localhost' || location.hostname.startsWith('127.')) || location.hostname.includes('github.io'))) {
+                            warn.style.display = 'inline-block';
+                        }
+                        if (location.hostname.includes('github.io') && API_BASE === window.location.origin) {
+                            showFeedback('error', 'Backend API not available on GitHub Pages. Set window.MASS_MAILER_API or localStorage mass_mailer_api_base to your server URL.');
+                        }
+                    } catch (e) {}
+
+                </script>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
